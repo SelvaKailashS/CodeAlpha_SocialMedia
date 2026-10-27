@@ -1,0 +1,23 @@
+{
+  "name": "codealpha_socialmedia",
+  "version": "1.0.0",
+  "description": "Mini Social Media Platform built for CodeAlpha Internship",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "codealpha",
+    "socialmedia",
+    "fullstack",
+    "express",
+    "javascript"
+  ],
+  "author": "Selva Kailash S",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}

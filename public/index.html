@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pulse | CodeAlpha Social Media Platform</title>
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Mobile Bar -->
+  <header class="mobile-header">
+    <div class="logo">
+      <i class="fa-solid fa-bolt-lightning pulse-icon"></i>
+      <span>Pulse</span>
+    </div>
+    <div class="mobile-actions">
+      <button id="mobileAuthBtn" class="btn btn-sm btn-outline">Sign In</button>
+    </div>
+  </header>
+
+  <div class="app-container">
+    
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar-left">
+      <div class="brand">
+        <i class="fa-solid fa-bolt-lightning pulse-icon"></i>
+        <span>Pulse<strong>Social</strong></span>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="#" class="nav-item active" data-tab="feed">
+          <i class="fa-solid fa-house"></i>
+          <span>Home Feed</span>
+        </a>
+        <a href="#" class="nav-item" data-tab="following">
+          <i class="fa-solid fa-user-group"></i>
+          <span>Following</span>
+        </a>
+        <a href="#" class="nav-item" data-tab="explore">
+          <i class="fa-solid fa-hashtag"></i>
+          <span>Explore Topics</span>
+        </a>
+        <a href="#" class="nav-item" id="myProfileNavBtn">
+          <i class="fa-regular fa-user"></i>
+          <span>My Profile</span>
+        </a>
+      </nav>
+
+      <div class="user-pill-card" id="userPillCard">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80" alt="Avatar" id="sidebarAvatar" class="avatar-sm">
+        <div class="user-pill-info">
+          <strong id="sidebarName">Selva Kailash S</strong>
+          <span id="sidebarUsername">@selvakailash</span>
+        </div>
+        <button id="authToggleBtn" class="logout-icon-btn" title="Sign Out">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- CENTER FEED / PROFILE -->
+    <main class="main-feed-area">
+
+      <!-- View Switcher Tabs -->
+      <div class="feed-tabs-header">
+        <button class="feed-tab-btn active" id="tabForYou">For You</button>
+        <button class="feed-tab-btn" id="tabFollowing">Following</button>
+        <button class="feed-tab-btn" id="tabProfileView" style="display:none;">Profile</button>
+      </div>
+
+      <!-- PROFILE VIEW SECTION (Hidden by default, shown when viewing a profile) -->
+      <div id="profileSection" class="profile-section" style="display:none;">
+        <div class="profile-header-card">
+          <div class="cover-image-wrap">
+            <img id="profileCoverImg" src="" alt="Cover">
+          </div>
+          <div class="profile-header-body">
+            <div class="avatar-action-row">
+              <img id="profileAvatarImg" src="" alt="Avatar" class="profile-avatar-lg">
+              <div class="profile-actions" id="profileActionsWrap">
+                <!-- Injected: Edit Profile or Follow/Unfollow button -->
+              </div>
+            </div>
+            <div class="profile-info-content">
+              <h2 id="profileFullName">User Name</h2>
+              <span class="profile-handle" id="profileHandle">@handle</span>
+              <p class="profile-bio" id="profileBio">User bio description...</p>
+              
+              <div class="profile-meta">
+                <span id="profileLocationWrap"><i class="fa-solid fa-location-dot"></i> <span id="profileLocation">Location</span></span>
+                <span><i class="fa-regular fa-calendar"></i> Joined <span id="profileJoined">October 2026</span></span>
+              </div>
+
+              <div class="profile-stats">
+                <span><strong id="profileFollowingCount">0</strong> Following</span>
+                <span><strong id="profileFollowersCount">0</strong> Followers</span>
+                <span><strong id="profilePostsCount">0</strong> Posts</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-posts-title">
+          <h3>User Posts</h3>
+        </div>
+      </div>
+
+      <!-- POST COMPOSER (Visible in Feed Mode) -->
+      <div id="postComposer" class="post-composer-card">
+        <div class="composer-top">
+          <img id="composerAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80" alt="Avatar" class="avatar-sm">
+          <div class="composer-input-wrap">
+            <textarea id="postContentInput" placeholder="What's happening in tech today? Share your thoughts, code, or milestones..."></textarea>
+            
+            <!-- Image URL input toggle -->
+            <div id="imageUrlBox" class="image-url-box" style="display:none;">
+              <input type="url" id="postImageUrl" placeholder="Paste image URL (e.g. Unsplash or direct image link)">
+              <button id="closeImgInputBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- Tags input -->
+            <div id="tagInputBox" class="tag-input-box" style="display:none;">
+              <input type="text" id="postTagsInput" placeholder="Add hashtags separated by commas (e.g. CodeAlpha, WebDev, JavaScript)">
+            </div>
+          </div>
+        </div>
+
+        <div class="composer-footer">
+          <div class="composer-attachments">
+            <button class="attach-btn" id="toggleImgBtn" title="Add Image URL">
+              <i class="fa-regular fa-image"></i>
+            </button>
+            <button class="attach-btn" id="toggleTagBtn" title="Add Hashtags">
+              <i class="fa-solid fa-hashtag"></i>
+            </button>
+          </div>
+          <button id="publishPostBtn" class="btn btn-primary">
+            <i class="fa-solid fa-paper-plane"></i> Post
+          </button>
+        </div>
+      </div>
+
+      <!-- SEARCH / FILTER BANNER (If searching or filtering by tag) -->
+      <div id="activeFilterBanner" class="filter-banner" style="display:none;">
+        <span>Filtered by: <strong id="filterLabel">#WebDev</strong></span>
+        <button id="clearFilterBtn"><i class="fa-solid fa-xmark"></i> Clear</button>
+      </div>
+
+      <!-- POSTS FEED CONTAINER -->
+      <div id="postsFeed" class="posts-feed">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Empty State -->
+      <div id="emptyFeedState" class="empty-state" style="display:none;">
+        <i class="fa-regular fa-newspaper empty-icon"></i>
+        <h3>No posts found</h3>
+        <p>Be the first to share something with the community!</p>
+      </div>
+
+    </main>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside class="sidebar-right">
+      <!-- Search Input -->
+      <div class="search-widget">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="feedSearchInput" placeholder="Search posts, topics, people...">
+      </div>
+
+      <!-- Trending Hashtags -->
+      <div class="widget-card">
+        <h3><i class="fa-solid fa-arrow-trend-up"></i> Trending Topics</h3>
+        <div class="trending-list" id="trendingList">
+          <div class="trending-item" data-tag="CodeAlpha">
+            <span class="trend-tag">#CodeAlpha</span>
+            <span class="trend-count">1.4k posts</span>
+          </div>
+          <div class="trending-item" data-tag="WebDev">
+            <span class="trend-tag">#WebDev</span>
+            <span class="trend-count">890 posts</span>
+          </div>
+          <div class="trending-item" data-tag="FullStack">
+            <span class="trend-tag">#FullStack</span>
+            <span class="trend-count">640 posts</span>
+          </div>
+          <div class="trending-item" data-tag="JavaScript">
+            <span class="trend-tag">#JavaScript</span>
+            <span class="trend-count">520 posts</span>
+          </div>
+          <div class="trending-item" data-tag="Design">
+            <span class="trend-tag">#Design</span>
+            <span class="trend-count">310 posts</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Who to Follow -->
+      <div class="widget-card">
+        <h3>Who to Follow</h3>
+        <div class="who-to-follow-list" id="whoToFollowList">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <p>Built for CodeAlpha Full Stack Internship (Task 2)</p>
+        <p>© 2026 Pulse Social • <a href="https://github.com/SelvaKailashS" target="_blank">Selva Kailash S</a></p>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- Edit Profile Modal -->
+  <div id="editProfileModal" class="modal-backdrop">
+    <div class="modal modal-md">
+      <button class="modal-close" id="closeEditProfileModal"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-header">
+        <h3>Edit Profile</h3>
+        <p>Customize your public developer persona</p>
+      </div>
+      <form id="editProfileForm">
+        <div class="form-group">
+          <label for="editName">Full Name</label>
+          <input type="text" id="editName" required>
+        </div>
+        <div class="form-group">
+          <label for="editBio">Bio</label>
+          <textarea id="editBio" rows="3" class="form-textarea" placeholder="Tell the world what you build..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="editLocation">Location</label>
+          <input type="text" id="editLocation" placeholder="e.g. San Francisco, CA">
+        </div>
+        <div class="form-group">
+          <label for="editAvatar">Avatar Image URL</label>
+          <input type="url" id="editAvatar" placeholder="https://images.unsplash.com/...">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg mt-3">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Auth Modal (Sign In / Sign Up) -->
+  <div id="authModal" class="modal-backdrop">
+    <div class="modal modal-sm">
+      <button class="modal-close" id="closeAuthModal"><i class="fa-solid fa-xmark"></i></button>
+      <div class="auth-tabs">
+        <button id="tabLogin" class="tab-btn active">Sign In</button>
+        <button id="tabRegister" class="tab-btn">Create Account</button>
+      </div>
+
+      <form id="loginForm" class="auth-form">
+        <div class="form-group">
+          <label for="loginIdentifier">Username or Email</label>
+          <input type="text" id="loginIdentifier" required placeholder="selvakailash" value="selvakailash">
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" required placeholder="password123" value="password123">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Sign In</button>
+      </form>
+
+      <form id="registerForm" class="auth-form" style="display:none;">
+        <div class="form-group">
+          <label for="regName">Full Name</label>
+          <input type="text" id="regName" required placeholder="Your Name">
+        </div>
+        <div class="form-group">
+          <label for="regUsername">Username</label>
+          <input type="text" id="regUsername" required placeholder="yourusername">
+        </div>
+        <div class="form-group">
+          <label for="regEmail">Email Address</label>
+          <input type="email" id="regEmail" required placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label for="regPassword">Password</label>
+          <input type="password" id="regPassword" required minlength="6" placeholder="••••••••">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Create Account</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
